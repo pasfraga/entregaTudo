@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Cadastro de usuário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #fc="ngForm" (ngSubmit)="onsubmit(fc)">
+  <ion-item>
+    <ion-label position="floating" required>Nome</ion-label>
+    <ion-input type="text"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" required>E-mail</ion-label>
+    <ion-input type="email"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" required>Telefone</ion-label>
+    <ion-input type="text"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" required>Senha</ion-label>
+    <ion-input type="password"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating" required>Confirmar Senha</ion-label>
+    <ion-input type="password"></ion-input>
+  </ion-item>
+
+  <ion-item lines="none">
+    <ion-button slot="end" expand="block" color="success">Enviar</ion-button>
+  </ion-item>
+  <ion-item>
+    <ion-button slot="end" color="danger">Cancelar</ion-button>
+  </ion-item>
+  
+  </form>  
+
+
+</ion-content>
