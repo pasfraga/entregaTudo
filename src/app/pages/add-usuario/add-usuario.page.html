@@ -7,35 +7,37 @@
 <ion-content>
   <form #fc="ngForm" (ngSubmit)="onsubmit(fc)">
   <ion-item>
-    <ion-label position="floating" required>Nome</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-label position="floating" >Nome</ion-label>
+    <ion-input type="text" [(ngModel)]="usuario.nome" name="nome" required></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating" required>E-mail</ion-label>
-    <ion-input type="email"></ion-input>
+    <ion-label position="floating" >E-mail</ion-label>
+    <ion-input type="email" [(ngModel)]="usuario.email" name="email" required></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating" required>Telefone</ion-label>
-    <ion-input type="text"></ion-input>
+    <ion-label position="floating" >Telefone</ion-label>
+    <ion-input type="text" [(ngModel)]="usuario.tel" name="tel" required></ion-input>
   </ion-item>
 
   <ion-item>
-    <ion-label position="floating" required>Senha</ion-label>
-    <ion-input type="password"></ion-input>
+    <ion-label position="floating" >Senha</ion-label>
+    <ion-input type="password" [(ngModel)]="usuario.pws" name="pws" required minlength="7" #p="ngModel"></ion-input>
   </ion-item>
+  <ion-text color="danger" *ngIf="p.invalid && p.dirty">Senha muito curta!!</ion-text>
 
   <ion-item>
-    <ion-label position="floating" required>Confirmar Senha</ion-label>
-    <ion-input type="password"></ion-input>
+    <ion-label position="floating" >Confirmar Senha</ion-label>
+    <ion-input type="password" (ngModel)="c" required name="conf" #c="ngModel"></ion-input>
   </ion-item>
+  <ion-text color="danger" *ngIf="(p.value != c.value) && c.dirty">Senhas diferentes!</ion-text>
 
   <ion-item lines="none">
-    <ion-button slot="end" expand="block" color="success">Enviar</ion-button>
+    <ion-button type= "submit" slot="end" expand="block" color="success" [disabled]="fc.invalid || p.value != c.value" expand="block" color="success">Salvar</ion-button>
   </ion-item>
-  <ion-item>
-    <ion-button slot="end" color="danger">Cancelar</ion-button>
+  <ion-item lines="none">
+    <ion-button type="reset" slot="end" color="danger">Limpar</ion-button>
   </ion-item>
   
   </form>  
