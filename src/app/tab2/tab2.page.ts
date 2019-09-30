@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UsuarioService } from '../services/usuario.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  protected usuarios: any;
+
+  constructor(
+    protected usuarioService:UsuarioService
+  ) {
+    this.usuarios = this.usuarioService.getAll();
+  }
 
 }

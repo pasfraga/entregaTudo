@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/model/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-add-usuario',
@@ -12,7 +13,8 @@ export class AddUsuarioPage implements OnInit {
   protected usuario: Usuario = new Usuario
 
   constructor(
-    protected usuarioService: UsuarioService
+    protected usuarioService: UsuarioService,
+    public alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -20,12 +22,23 @@ export class AddUsuarioPage implements OnInit {
   onsubmit(form){
     this.usuarioService.save(this.usuario).then(
       res=>{
-    
-    console.log("Cadastrado!!")
+    console.log("Cadastrado!!");
+      this.presentAlert("Aviso","Cadastrado");
   },
   erro=>{
     console.log("Erro: " + erro);
+      this.presentAlert("Erro","Erro ao cadastrar");
   }
     )
+}
+async presentAlert(titulo:string,texto:string) {
+  const alert = await this.alertController.create({
+    header: titulo,
+    //subHeader: 'Subtitle',
+    message: texto,
+    buttons: ['OK']
+  });
+
+  await alert.present();
 }
 }
