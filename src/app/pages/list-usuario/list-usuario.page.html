@@ -34,11 +34,14 @@
         <ion-avatar slot="start">
           <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
         </ion-avatar>
-        <ion-label>{{u.key}} - {{u.nome}}-{{u.email}}</ion-label>
+        <ion-label>
+          {{u.nome}}-{{u.email}}
+        </ion-label>
+        <ion-note>{{u.key}}</ion-note>
       </ion-item>
 
       <ion-item-options side="end">
-          <ion-item-option color="danger">
+          <ion-item-option color="danger" (click)="editar(u.key)">
             Delete
           </ion-item-option>
         </ion-item-options>

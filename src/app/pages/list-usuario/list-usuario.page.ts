@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-usuario',
@@ -9,7 +10,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class ListUsuarioPage implements OnInit {
 
   protected usuarios: any;
-
+  protected router:Router
   ngOnInit() {
   }
 
@@ -17,6 +18,10 @@ export class ListUsuarioPage implements OnInit {
     protected usuarioService: UsuarioService
   ) {
     this.usuarios = this.usuarioService.getAll();
+  }
+
+  editar(key){
+    this.router.navigate(['/tabs/addUsuario',key]);
   }
 
   async doRefresh(event) {

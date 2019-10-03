@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {AngularFireDatabase} from '@angular/fire/database'
 import {map} from 'rxjs/operators'
+import { Usuario } from '../model/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -24,4 +25,10 @@ export class UsuarioService {
         )
       );
   }
+    get(id){
+      return this.fire.object<Usuario>("usuarios/"+id).valueChanges();
+    }
+    remover(id){
+      return this.fire.object<Usuario>("usuarios/"+id).remove();
+    }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/model/usuario';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { AlertController } from '@ionic/angular';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-add-usuario',
@@ -10,35 +11,50 @@ import { AlertController } from '@ionic/angular';
 })
 export class AddUsuarioPage implements OnInit {
 
-  protected usuario: Usuario = new Usuario
+  protected usuario: Usuario = new Usuario;
+  protected id: string = null;
 
   constructor(
     protected usuarioService: UsuarioService,
-    public alertController: AlertController
+    protected alertController: AlertController,
+    protected router: Router,
+    protected activedRoute: ActivatedRoute,
+
   ) { }
 
   ngOnInit() {
-  }
-  onsubmit(form){
-    this.usuarioService.save(this.usuario).then(
-      res=>{
-    console.log("Cadastrado!!");
-      this.presentAlert("Aviso","Cadastrado");
-  },
-  erro=>{
-    console.log("Erro: " + erro);
-      this.presentAlert("Erro","Erro ao cadastrar");
-  }
-    )
-}
-async presentAlert(titulo:string,texto:string) {
-  const alert = await this.alertController.create({
-    header: titulo,
-    //subHeader: 'Subtitle',
-    message: texto,
-    buttons: ['OK']
-  });
+    this.id = this.activedRoute.snapshot.paramMap.get('id');
+    if (  this.id ){
+      this.usuarioService.get(this.id).subscribe(
+      res => {
+        this.usuario = res
 
-  await alert.present();
-}
+      },
+      erro => this.id = null
+    )
+    
+  }}
+
+  onsubmit(form) {
+    this.usuarioService.save(this.usuario).then(
+      res => {
+        console.log("Cadastrado!!");
+        this.presentAlert("Aviso", "Cadastrado");
+      },
+      erro => {
+        console.log("Erro: " + erro);
+        this.presentAlert("Erro", "Erro ao cadastrar");
+      }
+    )
+  }
+  async presentAlert(titulo: string, texto: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      //subHeader: 'Subtitle',
+      message: texto,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 }

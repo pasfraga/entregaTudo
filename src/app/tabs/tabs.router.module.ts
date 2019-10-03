@@ -27,6 +27,18 @@ const routes: Routes = [
           }
         ]
       },
+
+      {
+        path: 'addUsuario/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/add-usuario/add-usuario.module').then(m => m.AddUsuarioPageModule)
+          }
+        ]
+      },
+
       {
         path: 'listUsuario',
         children: [
