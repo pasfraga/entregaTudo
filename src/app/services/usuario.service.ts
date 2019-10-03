@@ -29,6 +29,10 @@ export class UsuarioService {
       return this.fire.object<Usuario>("usuarios/"+id).valueChanges();
     }
     remover(id){
-      return this.fire.object<Usuario>("usuarios/"+id).remove();
+      return this.fire.object("usuarios/"+id).remove();
+    }
+
+    update(usuario,id){
+      return this.fire.object("usuarios/"+id).update(usuario);
     }
 }

@@ -36,6 +36,19 @@ export class AddUsuarioPage implements OnInit {
   }}
 
   onsubmit(form) {
+    if(this.id){
+      this.usuarioService.save(this.usuario).then(
+        res => {
+          console.log("Atualizado!!");
+          this.presentAlert("Aviso", "Atualizado");
+        },
+        erro => {
+          console.log("Erro: " + erro);
+          this.presentAlert("Erro", "Erro ao Atualizar");
+        }
+      )
+
+    }else{
     this.usuarioService.save(this.usuario).then(
       res => {
         console.log("Cadastrado!!");
@@ -47,6 +60,7 @@ export class AddUsuarioPage implements OnInit {
       }
     )
   }
+}
   async presentAlert(titulo: string, texto: string) {
     const alert = await this.alertController.create({
       header: titulo,
@@ -57,4 +71,5 @@ export class AddUsuarioPage implements OnInit {
 
     await alert.present();
   }
-}
+  }
+
