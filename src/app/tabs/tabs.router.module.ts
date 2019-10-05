@@ -27,6 +27,16 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'addEntrega',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/add-entrega/add-entrega.module').then(m => m.AddEntregaPageModule)
+          }
+        ]
+      },
 
       {
         path: 'addUsuario/:id',
@@ -35,6 +45,16 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../pages/add-usuario/add-usuario.module').then(m => m.AddUsuarioPageModule)
+          }
+        ]
+      },
+      {
+        path: 'addEntrega/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/add-entrega/add-entrega.module').then(m => m.AddEntregaPageModule)
           }
         ]
       },
@@ -50,12 +70,12 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab3',
+        path: 'listEntrega',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../tab3/tab3.module').then(m => m.Tab3PageModule)
+              import('../pages/list-entrega/list-entrega.module').then(m => m.ListEntregaPageModule)
           }
         ]
       },
