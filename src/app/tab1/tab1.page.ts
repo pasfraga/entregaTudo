@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { EntregaService } from '../services/entrega.service';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +8,13 @@ import { Component } from '@angular/core';
 })
 export class Tab1Page {
 
-  constructor() {}
+  protected entrega:any;
 
+  constructor(
+    protected entregaService:EntregaService
+  ) { }
+ 
+  ngOnInit() {
+    this.entrega = this.entregaService.getAll();
+  }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-usuario',
@@ -10,18 +10,18 @@ import { Router } from '@angular/router';
 export class ListUsuarioPage implements OnInit {
 
   protected usuarios: any;
-  protected router:Router
-  ngOnInit() {
-  }
 
   constructor(
-    protected usuarioService: UsuarioService
-  ) {
+    protected usuarioService: UsuarioService,
+    protected router:Router
+  ) { }
+
+  ngOnInit() {
     this.usuarios = this.usuarioService.getAll();
   }
 
-  editar(key){
-    this.router.navigate(['/tabs/addUsuario',key]);
+  editar(key) {
+    this.router.navigate(['/tabs/addUsuario', key]);
   }
 
   async doRefresh(event) {
@@ -33,5 +33,9 @@ export class ListUsuarioPage implements OnInit {
       event.target.complete();
     }, 500);
 
+  }
+
+  remover(key){
+    this.usuarioService.remover(key);
   }
 }

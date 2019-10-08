@@ -80,6 +80,26 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'perfilEntrega/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/perfil-entrega/perfil-entrega.module').then(m => m.PerfilEntregaPageModule)
+          }
+        ]
+      },
+      {
+        path: 'perfilUsuario/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../pages/perfil-usuario/perfil-usuario.module').then(m => m.PerfilUsuarioPageModule)
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'

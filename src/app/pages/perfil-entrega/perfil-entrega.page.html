@@ -1,0 +1,20 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Entregas
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content *ngIf="entrega">
+      <ion-card [routerLink]="['/tabs/perfilEntrega/:id']">
+        <!-- <img src="/assets/shapes.svg" alt="" /> -->
+        <ion-card-header>
+          <ion-card-subtitle>{{entrega.produto}}</ion-card-subtitle>
+          <ion-card-title>{{entrega.descricao}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{entrega.valor}}.</p>
+        </ion-card-content>
+      </ion-card>
+  </ion-content>
