@@ -22,15 +22,16 @@
     </ion-refresher-content>
   </ion-refresher>
 
-<ion-list *ngIf="entregas | async as users">
-    <ion-item-sliding *ngFor="let e of users">
+<ion-list *ngIf="entregas | async as entrs">
+    <ion-item-sliding *ngFor="let e of entrs">
         <ion-item-options side="start">
-          <ion-item-option color="">
+          <ion-item-option color="" (click)="editar(e.key)">
             Atualizar
           </ion-item-option>
         </ion-item-options>
 
-    <ion-item>
+    
+      <ion-item [routerLink]="['/tabs/perfilEntrega/',e.key]">
         <ion-avatar slot="start">
           <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
         </ion-avatar>
@@ -41,7 +42,7 @@
       </ion-item>
 
       <ion-item-options side="end">
-          <ion-item-option color="danger" (click)="editar(e.key)">
+          <ion-item-option color="danger" (click)="remover(e.key)">
             Delete
           </ion-item-option>
         </ion-item-options>

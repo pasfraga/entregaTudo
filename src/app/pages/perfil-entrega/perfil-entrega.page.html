@@ -6,15 +6,16 @@
     </ion-toolbar>
   </ion-header>
   
-  <ion-content *ngIf="entrega">
-      <ion-card [routerLink]="['/tabs/perfilEntrega/:id']">
-        <!-- <img src="/assets/shapes.svg" alt="" /> -->
-        <ion-card-header>
-          <ion-card-subtitle>{{entrega.produto}}</ion-card-subtitle>
-          <ion-card-title>{{entrega.descricao}}</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <p>{{entrega.valor}}.</p>
-        </ion-card-content>
-      </ion-card>
+<ion-content>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-label>Produto: {{entrega.produto}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Descrição: {{entrega.descricao}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Valor: {{entrega.valor}}</ion-label>
+        </ion-item>
+      </ion-list>
   </ion-content>

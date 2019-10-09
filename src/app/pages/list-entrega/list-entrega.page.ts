@@ -8,18 +8,22 @@ import { EntregaService } from 'src/app/services/entrega.service';
   styleUrls: ['./list-entrega.page.scss'],
 })
 export class ListEntregaPage implements OnInit {
-  protected entregas: any;
-  protected router:Router
 
-  ngOnInit() {}
-    constructor(
-    protected entregaService: EntregaService
-  ) {
+  protected entregas: any;
+  
+
+  constructor(
+    protected entregaService: EntregaService,
+    protected router:Router
+
+  ){}
+
+  ngOnInit() {
     this.entregas = this.entregaService.getAll();
   }
-
+  
   editar(key){
-    this.router.navigate(['/tabs/addEntrega',key]);
+    this.router.navigate(['/tabs/addEntrega', key]);
   }
 
   async doRefresh(event) {
@@ -31,6 +35,9 @@ export class ListEntregaPage implements OnInit {
       event.target.complete();
     }, 500);
 
+  }
+  remover(key){
+    this.entregaService.remover(key);
   }
 
 }

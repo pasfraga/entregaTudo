@@ -10,11 +10,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class ListUsuarioPage implements OnInit {
 
   protected usuarios: any;
+ 
 
   constructor(
     protected usuarioService: UsuarioService,
     protected router:Router
-  ) { }
+  ){}
 
   ngOnInit() {
     this.usuarios = this.usuarioService.getAll();
