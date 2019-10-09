@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Entrega } from 'src/app/model/entrega';
 import { EntregaService } from 'src/app/services/entrega.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-entrega',
@@ -14,17 +14,16 @@ export class PerfilEntregaPage implements OnInit {
   protected id: string = null;
 
   constructor(
-    protected entregaService: EntregaService,
-    protected router: Router,
-    protected ativedRoute: ActivatedRoute
+    protected activatedRoute: ActivatedRoute,
+    protected entregaService: EntregaService
   ) { }
 
   ngOnInit() {
-    this.id = this.ativedRoute.snapshot.paramMap.get("id");
+    this.id = this.activatedRoute.snapshot.paramMap.get("id");
     if (this.id) {
       this.entregaService.get(this.id).subscribe(
         res => {
-          this.entrega = res;
+          this.entrega = res
         },
         erro => this.id = null
       )
