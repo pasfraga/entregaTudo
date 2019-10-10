@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-list-usuario',
@@ -14,7 +15,9 @@ export class ListUsuarioPage implements OnInit {
 
   constructor(
     protected usuarioService: UsuarioService,
-    protected router:Router
+    protected router:Router,
+    protected alertController: AlertController
+
   ){}
 
   ngOnInit() {
@@ -35,8 +38,27 @@ export class ListUsuarioPage implements OnInit {
     }, 500);
 
   }
+  async remover(key) {
+    const alert = await this.alertController.create({
+      header: 'Apagar!',
+      message: 'Deseja apagar estes dados definitivamente?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Sim',
+          handler: () => {
+            this.usuarioService.remover(key);
+          }
+        }
+      ]
+    });
 
-  remover(key){
-    this.usuarioService.remover(key);
+    await alert.present();
   }
 }

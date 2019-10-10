@@ -11,7 +11,7 @@
 
 <ion-content *ngIf="entrega | async as users">
 
-<ion-card *ngFor="let e of users" routerLink="/tabs/perfilEntrega/:id">
+<ion-card *ngFor="let e of users" [routerLink]="['/tabs/perfilEntrega/',e.key]">
   <ion-card-header >
     <ion-card-subtitle>{{e.produto}}</ion-card-subtitle>
     <ion-card-title>{{e.valor}}</ion-card-title>
