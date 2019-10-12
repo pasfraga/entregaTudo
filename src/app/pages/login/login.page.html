@@ -1,11 +1,11 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>Login do Usuário</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <form #fc (ngSubmit)= "onsubmit(fc)">
+  <ion-toolbar>
+    <ion-title>Login do Usuário</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #fc (ngSubmit)="onsubmit(fc)">
     <ion-item>
       <ion-label position="floating">E-mail</ion-label>
       <ion-input type="email" name="email" [(ngModel)]="email" required></ion-input>
@@ -14,10 +14,14 @@
       <ion-label position="floating">Senha</ion-label>
       <ion-input type="password" name="senha" [(ngModel)]="senha" required></ion-input>
     </ion-item>
-  
-    <ion-item >
-      <ion-button type="submit" expand="block" color="success">Entrar</ion-button>
-      <ion-button type="reset" expand="block" color="danger">Cancelar</ion-button>
-    </ion-item>
-  </form>
-  </ion-content>
+
+        <section>
+          <ion-button expand="block" (click)="loginWEB">Entrar com Google</ion-button>
+        </section>
+
+            <section>
+              <ion-button expand="block" color="danger" (click)="logout()">Sair</ion-button>
+            </section>
+
+            </form>
+</ion-content>

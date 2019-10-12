@@ -12,12 +12,15 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import {AngularFireDatabaseModule } from '@angular/fire/database'
+import { AngularFireAuthModule} from '@angular/fire/auth';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
 ],
   providers: [
     StatusBar,
