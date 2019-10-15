@@ -42,6 +42,12 @@ export class AddUsuarioPage implements OnInit {
   }}
 
   onsubmit(form) {
+    if (!this.preview){
+      this.presentAlert("Ops,","Tire sua Foto!!")
+    }else{
+      this.usuario.foto = this.preview;
+    }
+
     if(this.id){
       this.usuarioService.save(this.usuario).then(
         res => {
