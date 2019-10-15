@@ -44,9 +44,10 @@ export class AddUsuarioPage implements OnInit {
   onsubmit(form) {
     if (!this.preview){
       this.presentAlert("Ops,","Tire sua Foto!!")
-    }else{
-      this.usuario.foto = this.preview;
     }
+    else{
+      this.usuario.foto = this.preview;
+    
 
     if(this.id){
       this.usuarioService.save(this.usuario).then(
@@ -72,6 +73,7 @@ export class AddUsuarioPage implements OnInit {
       }
     )
   }
+}
 }
   async presentAlert(titulo: string, texto: string) {
     const alert = await this.alertController.create({
