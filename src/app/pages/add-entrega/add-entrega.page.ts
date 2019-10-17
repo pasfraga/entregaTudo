@@ -14,7 +14,12 @@ export class AddEntregaPage implements OnInit {
 
   protected entrega: Entrega = new Entrega;
   protected id: string = null;
-  protected preview: string = null
+  protected preview: string = null;
+  
+  slideOpts = {
+    initialSlide: 1,
+    speed: 400
+  };
 
   constructor(
       protected entregaService: EntregaService,

@@ -5,14 +5,19 @@
 </ion-header>
 
 <ion-content>
-    <ion-item lines="none">
+    <ion-item lines="none" >
+        <ion-slides pager="true" [options]="slideOpts">
+          <ion-slide>
         <img src="assets/entrega.jpg" (click)="tirarFoto()" *ngIf="!preview">
         <img [src]="preview" (click)="tirarFoto()" *ngIf="preview">
-        </ion-item>
+        </ion-slide>
+      </ion-slides>
+    </ion-item>
   <form #fe="ngForm" (ngSubmit)="onsubmit(fe)">
+
   <ion-item>
     <ion-label position="floating" >Produto</ion-label>
-    <ion-input type="text" [(ngModel)]="entrega.produto" name="produto" required></ion-input>--
+    <ion-input type="text" [(ngModel)]="entrega.produto" name="produto" required></ion-input>
   </ion-item>
 
   <ion-item>
