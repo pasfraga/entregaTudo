@@ -8,5 +8,6 @@ export class Entrega {
     quant:number;
     valor:number;
     ativo:boolean = true;
+    foto:string;
 
 }

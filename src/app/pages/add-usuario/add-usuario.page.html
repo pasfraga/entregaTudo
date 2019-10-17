@@ -17,7 +17,8 @@
 
   <ion-item>
     <ion-label position="floating" >E-mail</ion-label>
-    <ion-input type="email" [(ngModel)]="usuario.email" name="email" required></ion-input>
+    <ion-input type="email" [(ngModel)]="usuario.email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" #e="ngModel"></ion-input>
+    <ion-text color="danger" *ngIf="e.invalid && e.dirty">E-mail Invalido</ion-text>
   </ion-item>
 
   <ion-item>

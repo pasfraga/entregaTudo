@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
+
 @Component({
   selector: 'app-add-usuario',
   templateUrl: './add-usuario.page.html',
@@ -23,7 +24,7 @@ export class AddUsuarioPage implements OnInit {
     protected router: Router,
     protected activedRoute: ActivatedRoute,
     private geolocation: Geolocation,
-    private camera: Camera
+    private camera: Camera,
 
   ) { }
 

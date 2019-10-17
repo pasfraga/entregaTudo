@@ -5,6 +5,10 @@
 </ion-header>
 
 <ion-content>
+    <ion-item lines="none">
+        <img src="assets/entrega.jpg" (click)="tirarFoto()" *ngIf="!preview">
+        <img [src]="preview" (click)="tirarFoto()" *ngIf="preview">
+        </ion-item>
   <form #fe="ngForm" (ngSubmit)="onsubmit(fe)">
   <ion-item>
     <ion-label position="floating" >Produto</ion-label>

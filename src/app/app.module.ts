@@ -16,6 +16,7 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from '../environments/environment';
 import {AngularFireDatabaseModule } from '@angular/fire/database'
 import { AngularFireAuthModule} from '@angular/fire/auth';
+import { BrMaskerModule } from 'br-mask';
 
 
 @NgModule({
@@ -24,7 +25,7 @@ import { AngularFireAuthModule} from '@angular/fire/auth';
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,BrMaskerModule
 ],
   providers: [
     StatusBar,
@@ -34,4 +35,5 @@ import { AngularFireAuthModule} from '@angular/fire/auth';
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {}
