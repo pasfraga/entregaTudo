@@ -5,14 +5,17 @@
 </ion-header>
 
 <ion-content>
+
     <ion-item lines="none" >
-        <ion-slides pager="true" [options]="slideOpts">
-          <ion-slide>
         <img src="assets/entrega.jpg" (click)="tirarFoto()" *ngIf="!preview">
         <img [src]="preview" (click)="tirarFoto()" *ngIf="preview">
-        </ion-slide>
-      </ion-slides>
-    </ion-item>
+      </ion-item>
+          <ion-slides pager="true" [options]="slideOpts" >
+              <ion-slide *ngFor="let f of preview">
+                <img src="{{f}}">
+              </ion-slide>
+            </ion-slides>
+            
   <form #fe="ngForm" (ngSubmit)="onsubmit(fe)">
 
   <ion-item>

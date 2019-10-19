@@ -7,6 +7,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 
+
 @Component({
   selector: 'app-add-usuario',
   templateUrl: './add-usuario.page.html',
@@ -50,32 +51,35 @@ export class AddUsuarioPage implements OnInit {
       this.usuario.foto = this.preview;
     
 
-    if(this.id){
-      this.usuarioService.save(this.usuario).then(
-        res => {
-          console.log("Atualizado!!");
-          this.presentAlert("Aviso", "Atualizado");
-        },
-        erro => {
-          console.log("Erro: " + erro);
-          this.presentAlert("Erro", "Erro ao Atualizar");
-        }
-      )
-
-    }else{
-    this.usuarioService.save(this.usuario).then(
-      res => {
-        console.log("Cadastrado!!");
-        this.presentAlert("Aviso", "Cadastrado");
-      },
-      erro => {
-        console.log("Erro: " + erro);
-        this.presentAlert("Erro", "Erro ao cadastrar");
+      if (this.id) {
+        this.usuarioService.update(this.usuario, this.id).then(
+          res => {
+            this.presentAlert("Aviso", "Atualizado!");
+            form.reset();
+            this.usuario = new Usuario;
+            this.router.navigate(['/tabs/listUsuario']);
+          },
+          erro => {
+            console.log("Erro: " + erro);
+            this.presentAlert("Erro", "Erro ao atualizar!");
+          }
+        )
+      } else {
+        this.usuarioService.save(this.usuario).then(
+          res => {
+            this.presentAlert("Aviso", "Cadastrado!");
+            form.reset();
+            this.usuario = new Usuario;
+            this.router.navigate(['/tabs/listUsuario']);
+          },
+          erro => {
+            console.log("Erro: " + erro);
+            this.presentAlert("Erro", "Erro ao cadastrar!");
+          }
+        )
       }
-    )
-  }
-}
-}
+    }
+    }
   async presentAlert(titulo: string, texto: string) {
     const alert = await this.alertController.create({
       header: titulo,
