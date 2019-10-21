@@ -13,6 +13,16 @@ export class PerfilEntregaPage implements OnInit {
   protected entrega: Entrega = new Entrega;
   protected id: string = null;
 
+  slideOpts = {
+    slidesPerView: 5,
+    coverflowEffect: {
+      rotate: 50,
+      stretch: 0,
+      depth: 100,
+      modifier: 1,
+      slideShadows: true,
+  }};
+
   constructor(
     protected activatedRoute: ActivatedRoute,
     protected entregaService: EntregaService

@@ -7,9 +7,11 @@
   </ion-header>
   
 <ion-content>
-    <ion-item>
-        <img [src]="entrega.foto" alt="">
-      </ion-item>
+    <ion-slides pager="true" [options]="slideOpts" >
+        <ion-slide *ngFor="let f of entrega.foto">
+          <img src="{{f}}">
+        </ion-slide>
+      </ion-slides>
       <ion-list lines="none" >
         <ion-item>
           <ion-label>Produto: {{entrega.produto}}</ion-label>

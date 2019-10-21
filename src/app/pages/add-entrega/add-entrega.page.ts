@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { EntregaService } from 'src/app/services/entrega.service';
 import { Camera,CameraOptions } from '@ionic-native/camera/ngx';
-import { alertController } from '@ionic/core';
 
 @Component({
   selector: 'app-add-entrega',
@@ -121,7 +120,7 @@ export class AddEntregaPage implements OnInit {
   }
   async removerFoto(index) {
     const alert = await this.AlertController.create({
-      header: 'Apagar!',
+      header: 'Apagar?!',
       message: 'Deseja apagar esta Foto definitivamente?',
       buttons: [
         {
