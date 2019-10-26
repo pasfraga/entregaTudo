@@ -6,7 +6,16 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
-
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker,
+  Environment
+} from '@ionic-native/google-maps';
 
 @Component({
   selector: 'app-add-usuario',
@@ -19,38 +28,43 @@ export class AddUsuarioPage implements OnInit {
   protected id: string = null;
   protected preview: string = null;
 
+  protected map: GoogleMap;
+
   constructor(
     protected usuarioService: UsuarioService,
     protected alertController: AlertController,
     protected router: Router,
     protected activedRoute: ActivatedRoute,
     private geolocation: Geolocation,
-    private camera: Camera,
-
+    private camera: Camera
   ) { }
 
   ngOnInit() {
     this.localAtual()
-    this.id = this.activedRoute.snapshot.paramMap.get('id');
-    if (  this.id ){
-      this.usuarioService.get(this.id).subscribe(
-      res => {
-        this.usuario = res
+  
+  }
+  
+  ionViewDidLoad() {
+  }
 
-      },
-      erro => this.id = null
-    )
-    
-  }}
+  //função chamada toda vez que a pagina recebe foco;
+  ionViewWillEnter() {
+    this.id = this.activedRoute.snapshot.paramMap.get("id");
+    if (this.id) {
+      this.usuarioService.get(this.id).subscribe(
+        res => {
+          this.usuario = res
+        },
+        erro => this.id = null
+      )
+    }
+  }
 
   onsubmit(form) {
-    if (!this.preview){
-      this.presentAlert("Ops,","Tire sua Foto!!")
-    }
-    else{
+    if (!this.preview) {
+      this.presentAlert("Ops!", "Tire sua foto!")
+    } else {
       this.usuario.foto = this.preview;
-    
-
       if (this.id) {
         this.usuarioService.update(this.usuario, this.id).then(
           res => {
@@ -79,7 +93,8 @@ export class AddUsuarioPage implements OnInit {
         )
       }
     }
-    }
+  }
+
   async presentAlert(titulo: string, texto: string) {
     const alert = await this.alertController.create({
       header: titulo,
@@ -91,33 +106,68 @@ export class AddUsuarioPage implements OnInit {
     await alert.present();
   }
 
-  localAtual(){
+  localAtual() {
     this.geolocation.getCurrentPosition().then((resp) => {
-      // resp.coords.latitude
       this.usuario.lat = resp.coords.latitude
-      // resp.coords.longitude
       this.usuario.lng = resp.coords.longitude
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
+      this.loadMap()
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
-  tirarFoto(){
-  const options: CameraOptions = {
-    quality: 100,
-    destinationType: this.camera.DestinationType.FILE_URI,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE
+  tirarFoto() {
+    const options: CameraOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE
+    }
+
+    this.camera.getPicture(options).then((imageData) => {
+      // imageData is either a base64 encoded string or a file URI
+      // If it's base64 (DATA_URL):
+      let base64Image = 'data:image/jpeg;base64,' + imageData;
+      this.preview = base64Image;
+    }, (err) => {
+      // Handle error
+    });
   }
-  
-  this.camera.getPicture(options).then((imageData) => {
-   // imageData is either a base64 encoded string or a file URI
-   // If it's base64 (DATA_URL):
-   let base64Image = 'data:image/jpeg;base64,' + imageData;
-   this.preview = base64Image;
-  }, (err) => {
-   // Handle error
-  });
+
+  loadMap() {
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+         target: {
+           lat: this.usuario.lat,
+           lng: this.usuario.lng
+         },
+         zoom: 18,
+         tilt: 30
+       }
+    };
+
+    this.map = GoogleMaps.create('map_canvas', mapOptions);
+
+    let marker: Marker = this.map.addMarkerSync({
+      title: 'Ionic',
+      icon: 'blue',
+      animation: 'DROP',
+      position: {
+        lat: this.usuario.lat,
+        lng: this.usuario.lng
+      }
+    });
+    marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+      alert('clicked');
+    });
+    this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe(
+      res=>{
+        console.log(res);
+        marker.setPosition(res[0]);
+        this.usuario.lat = res[0].lat;
+        this.usuario.lng = res[0].lng;
+      }
+    )
+  }
+
 }
-  }
-
