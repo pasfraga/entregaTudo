@@ -6,6 +6,17 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
+import {
+  GoogleMaps,
+  GoogleMap,
+  GoogleMapsEvent,
+  GoogleMapOptions,
+  CameraPosition,
+  MarkerOptions,
+  Marker,
+  Environment
+} from '@ionic-native/google-maps';
+
 @Component({
   selector: 'app-add-entrega',
   templateUrl: './add-entrega.page.html',
@@ -16,6 +27,7 @@ export class AddEntregaPage implements OnInit {
   protected entrega: Entrega = new Entrega;
   protected id: string = null;
   protected preview: string[] = null;
+  protected map: GoogleMap;
 
   slideOpts = {
     initialSlide: 1,
@@ -34,6 +46,8 @@ export class AddEntregaPage implements OnInit {
 
   ngOnInit() {
     this.localAtual()
+  }
+  ionViewDidLoad() {
   }
 
   //função chamada toda vez que a pagina recebe foco;
@@ -98,6 +112,7 @@ export class AddEntregaPage implements OnInit {
     this.geolocation.getCurrentPosition().then((resp) => {
       this.entrega.lat = resp.coords.latitude
       this.entrega.lng = resp.coords.longitude
+      this.loadMap()
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -144,5 +159,40 @@ export class AddEntregaPage implements OnInit {
       ]
     });
     await alert.present();
+  }
+  loadMap() {
+    let mapOptions: GoogleMapOptions = {
+      camera: {
+         target: {
+           lat: this.entrega.lat,
+           lng: this.entrega.lng
+         },
+         zoom: 18,
+         tilt: 30
+       }
+    };
+
+    this.map = GoogleMaps.create('map_canvas', mapOptions);
+
+    let marker: Marker = this.map.addMarkerSync({
+      title: 'Ionic',
+      icon: 'blue',
+      animation: 'DROP',
+      position: {
+        lat: this.entrega.lat,
+        lng: this.entrega.lng
+      }
+    });
+    marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+      alert('clicked');
+    });
+    this.map.on(GoogleMapsEvent.MAP_CLICK).subscribe(
+      res=>{
+        console.log(res);
+        marker.setPosition(res[0]);
+        this.entrega.lat = res[0].lat;
+        this.entrega.lng = res[0].lng;
+      }
+    )
   }
 }
